@@ -67,7 +67,7 @@ class ProductList extends Component {
 
           <div className="container">
             <div className="heading">
-              <h1 className="title">Latest Products for 2019 Feb</h1>
+              <h1 className="title">Latest Products for 2019</h1>
 
               <div key="ProductListHomePage" className="columns is-multiline">
                 {this.props.products.map((product) => {

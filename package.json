@@ -4,7 +4,7 @@
   "description": "Adobe Target React Demo Website",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=production",
+    "build": "webpack --mode=development -w",
     "start": "node server.js"
   },
   "repository": {
