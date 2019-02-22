@@ -37,12 +37,5 @@ module.exports = {
         from: 'resources/**/*'
       }
     ])
-  ],
-  devServer: {
-    port: 3000,
-    hot: true,
-    historyApiFallback: true,
-    contentBase: './public',
-    watchContentBase: true
-  }
+  ]
 };
