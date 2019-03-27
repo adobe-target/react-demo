@@ -15,11 +15,6 @@ import { HashRouter, Route } from 'react-router-dom'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { createBrowserHistory } from 'history';
 
-const history = syncHistoryWithStore(createBrowserHistory(), store);
-history.listen(function(location) {
-  // route changed
-});
-
 /**
  * Render App
  */

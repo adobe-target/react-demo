@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavBar from './NavBar'
+import NavBar from './Navbar'
 import Footer from '../components/Footer'
 import Helmet from "react-helmet"
 import { connect } from 'react-redux'
