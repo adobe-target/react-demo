@@ -15,6 +15,28 @@ import { HashRouter, Route } from 'react-router-dom'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { createBrowserHistory } from 'history';
 
+function targetView() {
+  var viewName = window.location.hash;
+
+  // Sanitize viewName to get rid of any trailing symbols derived from URL
+  if (viewName.startsWith('#')) {
+    viewName = viewName.substr(1);
+  }
+  if (viewName.startsWith('/')) {
+    viewName = viewName.substr(1);
+  }
+
+  viewName = viewName || 'home'; // view name cannot be empty
+
+  // Validate if the Target Libraries are available on your website
+  if (typeof adobe != 'undefined' && adobe.target && typeof adobe.target.triggerView === 'function') {
+    adobe.target.triggerView(viewName);
+  }
+}
+
+const history = syncHistoryWithStore(createBrowserHistory(), store);
+history.listen(targetView);
+
 /**
  * Render App
  */
