@@ -40,6 +40,11 @@ class Cart extends Component {
     const { dispatch } = this.props;
     dispatch(fetchProducts());
     dispatch(fetchCart());
+    adobe.target.triggerView('cart');
+  }
+
+  componentDidUpdate() {
+    adobe.target.triggerView('cart', {page: false});
   }
 
   render() {
@@ -47,15 +52,13 @@ class Cart extends Component {
       return prev + next;
     }, 0);
     let checkoutButton = total > 0 ?
-      <Link to="checkout" className="btn btn-primary btn-lg">Checkout your order</Link> : "";
+      <Link to="checkout" className="btn btn-primary btn-lg" onClick={this.props.closePopover}>Checkout your order</Link> : "";
+
     return (
       <div>
         <Helmet title="My Cart"/>
         <section className="section">
           <div className="container">
-            <div className="heading">
-              <h1 className="title">My Cart</h1>
-            </div>
             <table className="table">
               <thead>
               <tr>

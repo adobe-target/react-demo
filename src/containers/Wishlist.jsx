@@ -27,7 +27,8 @@ class Wishlist extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchProducts());
-    dispatch(fetchWishlist())
+    dispatch(fetchWishlist());
+    adobe.target.triggerView('cart');
   }
 
   render() {
@@ -36,9 +37,6 @@ class Wishlist extends Component {
         <Helmet title="My Wishlist"/>
         <section className="section">
           <div className="container">
-            <div className="heading">
-              <h1 className="title">My Wishlist</h1>
-            </div>
             <table className="table">
               <thead>
               <tr>

@@ -66,7 +66,7 @@ class Products extends Component {
               <div className="columns is-multiline">
                 {this.props.products.slice(0, productsToLoad).map((product) => {
                   return <ProductItem key={product.id}
-                                      product={product}
+                                        product={product}
                                       addToCart={this.addToCart.bind(this)}
                                       addToWishlist={this.addToWishlist.bind(this)}
                                       removeFromWishlist={this.removeFromWishlist.bind(this)}
