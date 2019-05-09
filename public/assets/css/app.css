@@ -24,9 +24,6 @@
     -o-animation: hideLoading 1s forwards;
     animation: hideLoading 1s forwards; }
 
-.section {
-  min-height: 400px; }
-
 .btn-margin {
   margin-top: 1.5rem;
   margin-right: 1.5rem; }
@@ -62,7 +59,7 @@
   color: #ffffff; }
 
 .section {
-  padding: 0rem 1.5rem; }
+  padding: 1.5rem; }
 
 .nav-item img {
   max-height: 4rem; }
@@ -132,6 +129,14 @@ li:not(:last-child).Footernav-disclaimer:after {
 
 .slick-slide img {
   width: 100% !important;
+}
+
+.cart-popover {
+  right: 25px !important;
+  width: 400px !important;
+  left: auto !important;
+  top: 56px !important;
+  max-width: 100% !important;
 }
 
 /*# sourceMappingURL=app.css.map */

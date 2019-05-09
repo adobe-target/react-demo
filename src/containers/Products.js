@@ -66,7 +66,7 @@ class Products extends Component {
               <div className="columns is-multiline">
                 {this.props.products.slice(0, productsToLoad).map((product) => {
                   return <ProductItem key={product.id}
-                                      product={product}
+                                        product={product}
                                       addToCart={this.addToCart.bind(this)}
                                       addToWishlist={this.addToWishlist.bind(this)}
                                       removeFromWishlist={this.removeFromWishlist.bind(this)}
@@ -77,8 +77,7 @@ class Products extends Component {
                 })}
               </div>
               {productsToLoad < this.props.products.length && (
-                <button type="button" className="btn btn-primary btn-lg" onClick={this.handleLoadMoreClicked}>Load
-                  more</button>
+                <button type="button" className="btn btn-primary btn-lg" onClick={this.handleLoadMoreClicked}>Load more</button>
               )}
             </div>
           </div>
@@ -88,8 +87,16 @@ class Products extends Component {
   }
 
   handleLoadMoreClicked() {
-    var page = this.state.page + 1;
-    this.setState({page});
+    const page = this.state.page + 1; // assuming page number is derived from component’s state
+    this.setState({page: page});
+    this.targetView('PRODUCTS-PAGE-' + page);
+  }
+
+  targetView(viewName) {
+    // Validate if the Target Libraries are available on your website
+    if (window.adobe && adobe.target && typeof adobe.target.triggerView === 'function') {
+      adobe.target.triggerView(viewName);
+    }
   }
 }
 /**

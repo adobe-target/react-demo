@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchCart } from '../actions/fetchCart'
 import { fetchWishlist } from '../actions/fetchWishlist'
+import Cart from './Cart'
+import Wishlist from './Wishlist'
 
 /**
  * Create NavBar Container
@@ -11,8 +13,30 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showBar: false
-    }
+      showBar: false,
+      isCartOpen: false,
+      isWishListOpen: false
+    };
+    this.registerListeners();
+  }
+
+  registerListeners() {
+    document.onclick = evt => {
+      const btns = document.querySelector('.cart-buttons');
+      const popover = document.querySelector('.cart-popover');
+      if (btns && btns.contains(evt.target) || popover && popover.contains(evt.target)) {
+        evt.stopPropagation();
+      } else {
+        this.closePopovers();
+      }
+    };
+  }
+
+  closePopovers() {
+    this.setState({
+      isCartOpen: false,
+      isWishListOpen: false
+    });
   }
 
   componentWillMount() {
@@ -26,15 +50,9 @@ class NavBar extends Component {
   }
 
   toggleNavBar() {
-    if (this.state.showBar) {
-      this.setState({
-        showBar: false
-      })
-    } else {
-      this.setState({
-        showBar: true
-      })
-    }
+    this.setState({
+      showBar: !this.state.showBar
+    })
   }
 
   render() {
@@ -60,19 +78,19 @@ class NavBar extends Component {
                 About Demo
               </Link>
 
-              <div key="NavBarCart" className="nav-item">
-                <Link to="/cart" className="button menu">
+              <div key="NavBarCart" className="nav-item cart-buttons">
+                <span className="button menu" onClick={() => this.toggleCartPopover()}>
                   <span className="icon">
                     <i className="fa fa-cart-arrow-down" aria-hidden="true"></i>
                   </span>
                   <span className="tag is-light">{Object.keys(this.props.cart).length}</span>
-                </Link>
-                <Link to="/wishlist" className="button menu">
+                </span>
+                <span to="/wishlist" className="button menu"  onClick={() => this.toggleWishListPopover()}>
                   <span className="icon">
                     <i className="fa fa-thumbs-up" aria-hidden="true"></i>
                   </span>
                   <span className="tag is-light">{Object.keys(this.props.wishlist).length}</span>
-                </Link>
+                </span>
               </div>
             </div>
           </div>
@@ -84,9 +102,37 @@ class NavBar extends Component {
           websites built with Single Page Apps (SPAs).
         </div>
         <br></br>
+
+        {this.state.isCartOpen && (
+          <div className="popover cart-popover">
+            <Cart closePopover={() => this.closePopovers()}/>
+          </div>
+        )}
+
+        {this.state.isWishListOpen && (
+          <div className="popover cart-popover">
+            <Wishlist closePopover={() => this.closePopovers()} />
+          </div>
+        )}
       </div>
 
     )
+  }
+
+  toggleCartPopover() {
+    const cartItemsCount = Object.keys(this.props.cart).length;
+    this.setState({
+      isCartOpen: !this.state.isCartOpen && cartItemsCount > 0,
+      isWishListOpen: false
+    });
+  }
+
+  toggleWishListPopover() {
+    const wishlistItemsCount = Object.keys(this.props.wishlist).length;
+    this.setState({
+      isWishListOpen: !this.state.isWishListOpen && wishlistItemsCount > 0,
+      isCartOpen: false
+    });
   }
 }
 /**

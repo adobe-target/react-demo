@@ -29,10 +29,18 @@ class Checkout extends Component {
   }
 
   onDeliveryPreferenceChanged(evt) {
-    var selectedPreferenceValue = evt.target.value,
-      preferenceKey = Object.keys(DELIVERY_PREFERENCES).filter(key => DELIVERY_PREFERENCES[key].value === selectedPreferenceValue);
+    const selectedPreferenceValue = evt.target.value,
+     preferenceKey = Object.keys(DELIVERY_PREFERENCES).filter(key => DELIVERY_PREFERENCES[key].value === selectedPreferenceValue);
 
     this.setState({deliveryPreference: DELIVERY_PREFERENCES[preferenceKey]});
+    this.targetView('DELIVERY-' + selectedPreferenceValue);
+  }
+
+  targetView(viewName) {
+    // Validate if the Target Libraries are available on your website
+    if (window.adobe && adobe.target && typeof adobe.target.triggerView === 'function') {
+      adobe.target.triggerView(viewName);
+    }
   }
 
   handleClick(event) {
